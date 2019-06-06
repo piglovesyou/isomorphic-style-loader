@@ -7,10 +7,14 @@
  * LICENSE.txt file in the root directory of this source tree.
  */
 
-import React from 'react'
+import React from 'react';
 
-const StyleContext = React.createContext({
-  insertCss: null,
-})
+const StyleContextKey = Symbol.for('isomorphic-style-loader/StyleContext');
 
-export default StyleContext
+if (!global[StyleContextKey]) {
+  global[StyleContextKey] = React.createContext({
+    insertCss: null,
+  });
+}
+
+export default global[StyleContextKey];
